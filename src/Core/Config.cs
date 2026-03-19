@@ -1,18 +1,28 @@
 ﻿using System.Text.Json.Serialization;
+using Shiron.HonamiStack.Core.Services;
 
 namespace Shiron.HonamiStack.Core;
 
-public record Config(string Name, List<Module> Modules);
-
-[JsonDerivedType(typeof(BackendModule))]
-[JsonDerivedType(typeof(FrontendModule))]
-public abstract class Module(string name, string location) {
-    public string Name { get; } = name;
-    public string Location { get; } = location;
+public class InitConfig() {
+    public required string WorkspaceName { get; set; }
+    public required IDBConfig? DBConfig { get; set; }
+    public bool SeparateDBProject { get; set; } = true;
+    public bool SeparateServiceProject { get; set; } = false;
+    public bool UseEFCoreIdentity { get; set; } = false;
+    public bool UseScalar { get; set; } = false;
 }
 
-public class BackendModule(string name, string location) : Module(name, location) {
+public enum DBType {
+    None,
+    PostgreSQL,
+    SQLite
 }
 
-public class FrontendModule(string name, string location) : Module(name, location) {
+public interface IDBConfig {
+}
+
+public record PostgresDBConfig(string Host, uint Port, string Username, string Password) : IDBConfig {
+}
+
+public record SQLiteDBConfig(string File) : IDBConfig {
 }
