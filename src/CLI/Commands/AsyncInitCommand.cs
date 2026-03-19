@@ -48,6 +48,9 @@ public class AsyncInitCommand(ILogger logger) : AsyncCommand<AsyncInitCommand.Se
             } else {
                 return CliConstants.ExitCodes.Aborted;
             }
+        } else {
+            Directory.CreateDirectory(projectPath);
+            Directory.SetCurrentDirectory(projectPath);
         }
 
         IDBConfig? dbConfig = null;
@@ -94,6 +97,10 @@ public class AsyncInitCommand(ILogger logger) : AsyncCommand<AsyncInitCommand.Se
             UseScalar = useScalar
         };
 
+        var initializer = new WorkspaceInitializer(config);
+        await initializer.Initialize();
+
+        AnsiConsole.WriteLine();
         logger.LogInitConfig(config);
         return 0;
     }

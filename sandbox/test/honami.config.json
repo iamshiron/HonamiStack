@@ -1,0 +1,33 @@
+{
+    "workspaceName": "test",
+    "dbConfigs": {
+        "Development": {
+            "$type": "postgres",
+            "host": "127.0.0.1",
+            "port": 5432,
+            "username": "honami_dev",
+            "password": "honami_dev"
+        },
+        "Production": {
+            "$type": "postgres",
+            "host": "127.0.0.1",
+            "port": 5432,
+            "username": "honami_dev",
+            "password": "honami_dev"
+        }
+    },
+    "projects": {
+        "db": {
+            "location": "backend/db",
+            "references": []
+        },
+        "server": {
+            "location": "backend/server",
+            "references": []
+        },
+        "web": {
+            "location": "frontned/web",
+            "references": []
+        }
+    }
+}
