@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/CLI/Shiron.HonamiStack.CLI/Shiron.HonamiStack.CLI.csproj" />
+  <Project Path="src/Core/Shiron.HonamiStack.Core.csproj" />
+</Solution>
