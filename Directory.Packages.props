@@ -1,9 +1,10 @@
 ﻿<Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="Spectre.Console" Version="0.53.1" />
-        <PackageVersion Include="Spectre.Console.Cli" Version="0.53.1" />
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.2.26159.112" />
+    <PackageVersion Include="Spectre.Console" Version="0.53.1" />
+    <PackageVersion Include="Spectre.Console.Cli" Version="0.53.1" />
+  </ItemGroup>
 </Project>
