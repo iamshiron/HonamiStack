@@ -1,0 +1,13 @@
+{
+    "name": "Test",
+    "modules": [
+        {
+            "name": "web",
+            "location": "apps/web"
+        },
+        {
+            "name": "core",
+            "location": "backend/core"
+        }
+    ]
+}
