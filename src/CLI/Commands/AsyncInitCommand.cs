@@ -23,7 +23,33 @@ public class AsyncInitCommand(ILogger logger) : AsyncCommand<AsyncInitCommand.Se
     }
 
     public async override Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken) {
-        var workspaceName = await AnsiConsole.AskAsync<string>("What's the name of your new project?", "honami-project", cancellationToken);
+        var workspaceName = await AnsiConsole.PromptAsync(new TextPrompt<string>("What is the name of your project?")
+                .DefaultValue("new-honami-project").Validate(input => {
+                    if (!input.ToLower().Equals(input)) {
+                        return ValidationResult.Error("Project names don't support uppercase characters");
+                    }
+                    if (input.Trim().Length == 0 || input.Trim() == string.Empty) {
+                        return ValidationResult.Error("Project names can't be empty");
+                    }
+                    if (input.Contains(' ')) {
+                        return ValidationResult.Error("Project names can't contain spaces");
+                    }
+
+                    return ValidationResult.Success();
+                }), cancellationToken
+        );
+        var projectPath = Path.Combine(Directory.GetCurrentDirectory(), workspaceName);
+
+        if (Directory.Exists(projectPath)) {
+            _logger.Error("Directory already exists");
+            var overwrite = await AnsiConsole.ConfirmAsync("Do you want to overrite the existing directory?", false, cancellationToken);
+            if (overwrite) {
+                Directory.Delete(projectPath, true);
+            } else {
+                return CliConstants.ExitCodes.Aborted;
+            }
+        }
+
         IDBConfig? dbConfig = null;
 
         var dbType = await AnsiConsole.PromptAsync(
