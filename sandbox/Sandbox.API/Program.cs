@@ -1,4 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+using Shiron.HonamiCore;
+
+var builder = HonamiApp.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
