@@ -12,6 +12,9 @@ builder.AddIdentity<User, Guid, SandboxDb>()
     .DisablePasswordRules()
     .RequireUniqueEmail();
 
+builder.AddMinIO("MINIO")
+    .UseSsl(false);
+
 // Adds the reference API to the app
 // This will NOT map the endpoints, it just configures the reference API
 builder.AddApiReference()

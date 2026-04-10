@@ -42,4 +42,10 @@ public class HonamiBuilder(string appName, WebApplicationBuilder builder) {
 
         return builder;
     }
+
+    public HonamiMinIOBuilder AddMinIO(string configPrefix) {
+        var builder = new HonamiMinIOBuilder(configPrefix);
+        _builders.Add(builder);
+        return builder;
+    }
 }
