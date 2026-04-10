@@ -1,9 +1,17 @@
+using DotNetEnv;
 using Shiron.HonamiCore;
+using Shiron.HonamiCore.Sandbox.DB;
+using Shiron.HonamiCore.Sandbox.DB.Schema;
 
-var builder = HonamiApp.CreateBuilder(args);
+Env.TraversePath().Load();
+var builder = HonamiApp.CreateBuilder<User, Guid, SandboxDb>(args);
+builder.AddIdentity()
+    .ConfigureCookie()
+    .DisablePasswordRules()
+    .RequireUniqueEmail();
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.AddPostgres("SANDBOX");
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
