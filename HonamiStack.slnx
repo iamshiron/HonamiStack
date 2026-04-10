@@ -3,9 +3,11 @@
     <Project Path="apps/src/Cli/Shiron.HonamiStack.CLI.csproj" />
   </Folder>
   <Folder Name="/Core/">
+    <Project Path="core/src/HonamiCore.EFCore/Shiron.HonamiCore.EFCore.csproj" />
     <Project Path="core/src/HonamiCore/Shiron.HonamiCore.csproj" />
   </Folder>
   <Folder Name="/Sandbox/">
     <Project Path="sandbox/Sandbox.API/Shiron.HonamiCore.Sandbox.API.csproj" />
+    <Project Path="sandbox/Sandbox.DB/Shiron.HonamiCore.Sandbox.DB.csproj" />
   </Folder>
 </Solution>
