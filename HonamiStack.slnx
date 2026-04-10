@@ -1,11 +1,11 @@
 <Solution>
-  <Folder Name="/core/" />
-  <Folder Name="/core/src/" />
-  <Folder Name="/core/src/HonamiCore/">
+  <Folder Name="/Apps/">
+    <Project Path="apps/src/Cli/Shiron.HonamiStack.CLI.csproj" />
+  </Folder>
+  <Folder Name="/Core/">
     <Project Path="core/src/HonamiCore/Shiron.HonamiCore.csproj" />
   </Folder>
-  <Folder Name="/sandbox/" />
-  <Folder Name="/sandbox/Sandbox.API/">
+  <Folder Name="/Sandbox/">
     <Project Path="sandbox/Sandbox.API/Shiron.HonamiCore.Sandbox.API.csproj" />
   </Folder>
 </Solution>

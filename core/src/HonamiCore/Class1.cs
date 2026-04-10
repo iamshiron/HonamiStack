@@ -1,6 +1,5 @@
-﻿namespace Shiron.HonamiCore;
+namespace Shiron.HonamiCore;
 
-public class Class1
-{
+public class Class1 {
 
 }
