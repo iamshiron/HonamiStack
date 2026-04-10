@@ -16,8 +16,8 @@ public class HonamiBuilder<TUser, TKey, TDbContext>(WebApplicationBuilder builde
     private HonamiDbBuilder? _dbBuilder;
 
     public WebApplication Build() {
-        _identityBuilder?.Process(this);
         _dbBuilder?.Process(this);
+        _identityBuilder?.Process(this);
 
         return BuilderHandle.Build();
     }
