@@ -17,16 +17,13 @@ public class HonamiBuilder<TUser, TKey, TDbContext>(string appName, WebApplicati
     private HonamiDbBuilder? _dbBuilder;
 
     // App-phase builders
-    private HonamiReferenceBuilder? _referenceBuilder;
+    private readonly Dictionary<Type, IAppBuilder[]> _appBuilders = [];
 
-    public WebApplication Build() {
+    public HonamiApp Build() {
         _dbBuilder?.Process(this);
         _identityBuilder?.Process(this);
 
-        var app = BuilderHandle.Build();
-        _referenceBuilder?.Process(app);
-
-        return app;
+        return new HonamiApp(BuilderHandle.Build(), _appBuilders);
     }
 
     public HonamiIdentityBuilder AddIdentity() {
@@ -39,8 +36,10 @@ public class HonamiBuilder<TUser, TKey, TDbContext>(string appName, WebApplicati
         return _dbBuilder;
     }
 
-    public HonamiReferenceBuilder AddReference(string? name = null) {
-        _referenceBuilder = new HonamiReferenceBuilder(name ?? appName);
-        return _referenceBuilder;
+    public HonamiReferenceBuilder AddApiReference(string? title = null) {
+        var builder = new HonamiReferenceBuilder(title ?? appName);
+        _appBuilders.Add(typeof(HonamiReferenceBuilder), [builder]);
+
+        return builder;
     }
 }

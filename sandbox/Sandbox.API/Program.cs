@@ -12,7 +12,10 @@ builder.AddIdentity()
     .RequireUniqueEmail();
 
 builder.AddPostgres("SANDBOX");
-builder.AddReference()
+
+// Adds the reference API to the app
+// This will NOT map the endpoints, it just configures the reference API
+builder.AddApiReference()
     .SetRoute("/api/v1")
     .SetTheme(ScalarTheme.Purple);
 
@@ -20,32 +23,15 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
-    app.MapOpenApi();
+// WIP: This will later not be required but is a current workaround to shorten calls to the actual web app
+var handle = app.AppHandle;
+
+if (handle.Environment.IsDevelopment()) {
+    handle.MapOpenApi();
+
+    // This explicitly maps the reference API to the app
+    app.MapApiReference();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[] {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () => {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-            new WeatherForecast
-            (
-                DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                Random.Shared.Next(-20, 55),
-                summaries[Random.Shared.Next(summaries.Length)]
-            ))
-        .ToArray();
-    return forecast;
-})
-    .WithName("GetWeatherForecast");
-
-app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary) {
-    public int TemperatureF => 32 + (int) (TemperatureC / 0.5556);
-}
+handle.MapGet("/health", () => new { Status = "Ok" });
+handle.Run();

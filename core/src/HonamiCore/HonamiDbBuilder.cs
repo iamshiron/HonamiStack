@@ -5,7 +5,7 @@ using Shiron.HonamiCore.EFCore.Entities;
 
 namespace Shiron.HonamiCore;
 
-public class HonamiDbBuilder(string configPrefix) {
+public class HonamiDbBuilder(string configPrefix) : IBuildBuilder {
     private string? _connectionString = null;
 
     public HonamiDbBuilder SetConnectionString(string connectionString) {

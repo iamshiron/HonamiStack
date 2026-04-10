@@ -7,7 +7,7 @@ using Shiron.HonamiCore.EFCore.Entities;
 
 namespace Shiron.HonamiCore;
 
-public class HonamiIdentityBuilder {
+public class HonamiIdentityBuilder : IBuildBuilder {
     private bool _configureCookie = false;
     private bool _requireUniqueEmail = false;
     private bool _disablePasswordRules = false;
@@ -26,7 +26,7 @@ public class HonamiIdentityBuilder {
     }
 
 
-    internal void Process<TUser, TKey, TDbContext>(HonamiBuilder<TUser, TKey, TDbContext> builder)
+    public void Process<TUser, TKey, TDbContext>(HonamiBuilder<TUser, TKey, TDbContext> builder)
         where TUser : HonamiUser<TKey>
         where TKey : IEquatable<TKey>
         where TDbContext : DbContext {

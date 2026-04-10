@@ -5,7 +5,7 @@ using Shiron.HonamiCore.EFCore.Entities;
 
 namespace Shiron.HonamiCore;
 
-public class HonamiReferenceBuilder(string title) {
+public class HonamiReferenceBuilder(string title) : IAppBuilder {
     private string _route = "/api/scalar";
     private ScalarTheme _theme = ScalarTheme.Purple;
     private bool _darkMode = true;
