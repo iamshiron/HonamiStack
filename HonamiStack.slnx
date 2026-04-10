@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/core/" />
+  <Folder Name="/core/src/" />
+  <Folder Name="/core/src/HonamiCore/">
+    <Project Path="core/src/HonamiCore/Shiron.HonamiCore.csproj" />
+  </Folder>
+  <Folder Name="/sandbox/" />
+  <Folder Name="/sandbox/Sandbox.API/">
+    <Project Path="sandbox/Sandbox.API/Shiron.HonamiCore.Sandbox.API.csproj" />
+  </Folder>
+</Solution>

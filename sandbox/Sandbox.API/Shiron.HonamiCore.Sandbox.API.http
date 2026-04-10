@@ -1,0 +1,6 @@
+@Shiron.HonamiCore.Sandbox.API_HostAddress = http://localhost:5155
+
+GET {{Shiron.HonamiCore.Sandbox.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
