@@ -1,16 +1,20 @@
 using DotNetEnv;
+using Scalar.AspNetCore;
 using Shiron.HonamiCore;
 using Shiron.HonamiCore.Sandbox.DB;
 using Shiron.HonamiCore.Sandbox.DB.Schema;
 
 Env.TraversePath().Load();
-var builder = HonamiApp.CreateBuilder<User, Guid, SandboxDb>(args);
+var builder = HonamiApp.CreateBuilder<User, Guid, SandboxDb>("Sandbox API", args);
 builder.AddIdentity()
     .ConfigureCookie()
     .DisablePasswordRules()
     .RequireUniqueEmail();
 
 builder.AddPostgres("SANDBOX");
+builder.AddReference()
+    .SetRoute("/api/v1")
+    .SetTheme(ScalarTheme.Purple);
 
 builder.Services.AddOpenApi();
 

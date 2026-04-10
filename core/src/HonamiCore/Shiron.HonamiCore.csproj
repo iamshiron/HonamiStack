@@ -15,4 +15,7 @@
     <ItemGroup>
         <ProjectReference Include="..\HonamiCore.EFCore\Shiron.HonamiCore.EFCore.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Scalar.AspNetCore"/>
+    </ItemGroup>
 </Project>
