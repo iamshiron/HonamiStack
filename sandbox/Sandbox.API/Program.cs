@@ -5,13 +5,12 @@ using Shiron.HonamiCore.Sandbox.DB;
 using Shiron.HonamiCore.Sandbox.DB.Schema;
 
 Env.TraversePath().Load();
-var builder = HonamiApp.CreateBuilder<User, Guid, SandboxDb>("Sandbox API", args);
-builder.AddIdentity()
+var builder = HonamiApp.CreateBuilder("Sandbox API", args);
+builder.AddPostgres<SandboxDb>("SANDBOX");
+builder.AddIdentity<User, Guid, SandboxDb>()
     .ConfigureCookie()
     .DisablePasswordRules()
     .RequireUniqueEmail();
-
-builder.AddPostgres("SANDBOX");
 
 // Adds the reference API to the app
 // This will NOT map the endpoints, it just configures the reference API

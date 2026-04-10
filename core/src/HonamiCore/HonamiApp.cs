@@ -8,13 +8,10 @@ namespace Shiron.HonamiCore;
 public class HonamiApp(WebApplication app, IReadOnlyDictionary<Type, IAppBuilder[]> appBuilders) {
     public readonly WebApplication AppHandle = app;
 
-    public static HonamiBuilder<TUser, TKey, TDbContext> CreateBuilder<TUser, TKey, TDbContext>(string name, string[]? args = null)
-        where TUser : HonamiUser<TKey>
-        where TKey : IEquatable<TKey>
-        where TDbContext : DbContext {
+    public static HonamiBuilder CreateBuilder(string name, string[]? args = null) {
         return args == null
-            ? new HonamiBuilder<TUser, TKey, TDbContext>(name, WebApplication.CreateBuilder())
-            : new HonamiBuilder<TUser, TKey, TDbContext>(name, WebApplication.CreateBuilder(args));
+            ? new HonamiBuilder(name, WebApplication.CreateBuilder())
+            : new HonamiBuilder(name, WebApplication.CreateBuilder(args));
     }
 
     public void MapApiReference() {

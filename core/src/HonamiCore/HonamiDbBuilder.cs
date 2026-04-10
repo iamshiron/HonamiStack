@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,26 +7,23 @@ using Shiron.HonamiCore.EFCore.Entities;
 
 namespace Shiron.HonamiCore;
 
-public class HonamiDbBuilder(string configPrefix) : IBuildBuilder {
-    private string? _connectionString = null;
+public class HonamiDbBuilder<TContext>(string configPrefix) : IBuildBuilder where TContext : DbContext {
+    private string? _connectionString;
 
-    public HonamiDbBuilder SetConnectionString(string connectionString) {
+    public HonamiDbBuilder<TContext> SetConnectionString(string connectionString) {
         _connectionString = connectionString;
         return this;
     }
 
-    public void Process<TUser, TKey, TDbContext>(HonamiBuilder<TUser, TKey, TDbContext> builder)
-        where TUser : HonamiUser<TKey>
-        where TKey : IEquatable<TKey>
-        where TDbContext : DbContext {
-        var handle = builder.BuilderHandle;
-
+    public void Process(HonamiBuilder builder) {
         var config = builder.BuilderHandle.Configuration;
         _connectionString ??= config.GetConnectionString("Default")
             ?? config.GetSection($"{configPrefix}_ConnectionStrings")["Default"]
             ?? BuildFromComponents(config);
 
-        builder.BuilderHandle.Services.AddDbContext<TDbContext>(o => o.UseNpgsql(_connectionString));
+        builder.BuilderHandle.Services.AddDbContext<TContext>(o => {
+            o.UseNpgsql(_connectionString);
+        });
     }
 
     private string BuildFromComponents(IConfiguration config) {

@@ -7,29 +7,27 @@ using Shiron.HonamiCore.EFCore.Entities;
 
 namespace Shiron.HonamiCore;
 
-public class HonamiIdentityBuilder : IBuildBuilder {
+public class HonamiIdentityBuilder<TUser, TKey, TDbContext> : IBuildBuilder
+    where TUser : HonamiUser<TKey> where TKey : IEquatable<TKey> where TDbContext : DbContext {
     private bool _configureCookie = false;
     private bool _requireUniqueEmail = false;
     private bool _disablePasswordRules = false;
 
-    public HonamiIdentityBuilder ConfigureCookie(bool b = true) {
+    public HonamiIdentityBuilder<TUser, TKey, TDbContext> ConfigureCookie(bool b = true) {
         _configureCookie = b;
         return this;
     }
-    public HonamiIdentityBuilder RequireUniqueEmail(bool b = true) {
+    public HonamiIdentityBuilder<TUser, TKey, TDbContext> RequireUniqueEmail(bool b = true) {
         _requireUniqueEmail = b;
         return this;
     }
-    public HonamiIdentityBuilder DisablePasswordRules(bool b = false) {
+    public HonamiIdentityBuilder<TUser, TKey, TDbContext> DisablePasswordRules(bool b = false) {
         _disablePasswordRules = b;
         return this;
     }
 
 
-    public void Process<TUser, TKey, TDbContext>(HonamiBuilder<TUser, TKey, TDbContext> builder)
-        where TUser : HonamiUser<TKey>
-        where TKey : IEquatable<TKey>
-        where TDbContext : DbContext {
+    public void Process(HonamiBuilder builder) {
         var handle = builder.BuilderHandle;
 
         if (_configureCookie) {
