@@ -35,5 +35,10 @@ if (handle.Environment.IsDevelopment()) {
     app.MapApiReference();
 }
 
-handle.MapGet("/health", () => new { Status = "Ok" });
-handle.Run();
+var route = app.MapGroup("/api");
+route.MapGet("/health", () => new { Status = "Ok" });
+route.MapPost("/get/{id:int}", (int id) => $"Hello {id}");
+route.MapPut("/update/{id:int}", (int id) => $"Updated {id}");
+route.MapDelete("/delete/{id:int}", (int id) => $"Deleted {id}");
+route.MapPatch("/patch/{id:int}", (int id) => $"Patched {id}");
+app.Run();
